@@ -2,12 +2,27 @@
 <html lang="en">
 <head>
     <style type="text/css">
-        #alienShips {
+        #alienShipContainer {
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .flexRow {
+        .alien-ship, .alien-ship p {
+            padding: 20px;
+        }
+
+        p {
+            margin: 10px;
+            border: solid red 2px;
+        }
+
+        #mother-ship {
+            background-image: url("./images/mothership.png");
+        }
+       
+        .flex-row {
             display: flex;
             flex-direction: row;
             justify-content: space-around;
@@ -18,50 +33,54 @@
 
     <script async defer>
 
-        class MotherShip {
-            constructor(){
-                this.name = "Mother Ship"
-                this.hitPoints = 100;
+        class Ship {
+            constructor(name, hitPoints, cssID, takesDamage) {
+                this.name = name;
+                this.hitPoints = hitPoints;
+                this.cssID = cssID;
+                this.takesDamage = takesDamage;
+            }
+
+            printShip(){
+                const showShip = `<p class="${this.cssID}"> ${this.name} - HP: ${this.hitPoints}</p>`;
+                document.getElementById(this.cssID).innerHTML += showShip;
+            }
+
+            takeHit(){
+                this.hitPoints = this.hitPoints-this.takesDamage;
+            }            
+        }
+
+        class MotherShip extends Ship {
+            constructor(name, hitPoints, cssID, takesDamage){
+                super (name, hitPoints, cssID, takesDamage);
                 }
-            takeHit() {
-                this.hitPoints = this.hitPoints - 9;
+        }
+
+        class DefenceShip extends Ship {
+            constructor(name, hitPoints, cssID, takesDamage){
+                super (name, hitPoints, cssID, takesDamage);
             }
         }
 
-        class DefenceShip {
-            constructor(){
-                this.name = "Defence Ship"
-                this.hitPoints = 80;
-            }
-            takeHit() {
-                this.hitPoints = this.hitPoints - 10;
-            }
-        }
-
-        class AttackShip {
-            constructor() {
-                this.name = "Attack Ship"
-                this.hitPoints = 45;
-            }
-            takeHit() {
-                this.hitPoints = this.hitPoints - 12;
+        class AttackShip extends Ship {
+            constructor(name, hitPoints, cssID, takesDamage){
+                super (name, hitPoints, cssID, takesDamage);
             }
         }
 
         let allShips = []; 
 
         const createShips = () => { 
-            allShips[0] = new MotherShip;
+            allShips[0] = new MotherShip("Mother Ship", 100, "mother-ship", 9);
             for (let index=1; index <6; index++) {
-                allShips[index] = new DefenceShip;
+                allShips[index] = new DefenceShip("Defence Ship", 80, "defence-ships", 10);
             }
             for (let index=6; index <14; index++) {
-                allShips[index] = new AttackShip;
+                allShips[index] = new AttackShip("Attack Ship", 45, "attack-ships", 12);
             }
             return allShips;
         }
-
-        const checkDead = ship => ship.hitPoints >= 0;
 
         const attackShip = () => {
             const randomShipIndex = Math.floor(Math.random() * allShips.length);
@@ -69,18 +88,15 @@
             if (allShips[0].hitPoints <= 0) {
                 allShips=[];
             }
-            allShips = allShips.filter(checkDead);
+            allShips = allShips.filter(ship => ship.hitPoints >0);
             printShips();
         }
 
-        const printIndividualShip = (ship) => {
-            const showShip = `<p class='ship'> ${ship.name} - HP: ${ship.hitPoints}</p >`;
-            document.getElementById('alienShips').innerHTML += showShip;
-        }
-
         const printShips = () => {
-            document.getElementById('alienShips').innerHTML = "";
-            allShips.forEach(printIndividualShip);
+             document.getElementById('mother-ship').innerHTML = "";
+             document.getElementById('attack-ships').innerHTML = "";
+             document.getElementById('defence-ships').innerHTML = "";
+            allShips.forEach(ship => ship.printShip());
         }
 
         const startResetGame = () => {
@@ -98,10 +114,10 @@
         <h2 id="start" onclick="startResetGame()">Start</h2>
         <h2 id="fire" onclick="attackShip()">Fire!</h2>
     </section>
-    <section id="alienShips">
-        <div id="motherShip"></div>
-        <div id="defenceShip" class="flexRow"></div>
-        <div id="attackShip" class="flexRow"></div">
+    <section id="alienShipContainer">
+        <div id="mother-ship" class ="alien-ship"></div>
+        <div id="defence-ships" class="flex-row alien-ship"></div>
+        <div id="attack-ships" class="flex-row alien-ship"></div">
     </section>
 </body>
 </html>
