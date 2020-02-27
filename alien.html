@@ -17,76 +17,76 @@
     </style>
 
     <script async defer>
+
         class MotherShip {
-    constructor(){
-        this.name = "Mother Ship"
-        this.hitPoints = 100;
-    }
-    takeHit() {
-        this.hitPoints = this.hitPoints - 9;
-    }
-}
+            constructor(){
+                this.name = "Mother Ship"
+                this.hitPoints = 100;
+                }
+            takeHit() {
+                this.hitPoints = this.hitPoints - 9;
+            }
+        }
 
-class DefenceShip {
-    constructor(){
-        this.name = "Defence Ship"
-        this.hitPoints = 80;
-    }
-    takeHit() {
-        this.hitPoints = this.hitPoints - 10;
-    }
-}
+        class DefenceShip {
+            constructor(){
+                this.name = "Defence Ship"
+                this.hitPoints = 80;
+            }
+            takeHit() {
+                this.hitPoints = this.hitPoints - 10;
+            }
+        }
 
-class AttackShip {
-    constructor() {
-        this.name = "Attack Ship"
-        this.hitPoints = 45;
-    }
-    takeHit() {
-        this.hitPoints = this.hitPoints - 12;
-    }
-}
+        class AttackShip {
+            constructor() {
+                this.name = "Attack Ship"
+                this.hitPoints = 45;
+            }
+            takeHit() {
+                this.hitPoints = this.hitPoints - 12;
+            }
+        }
 
-let allShips = []; 
+        let allShips = []; 
 
-const createShips = () => { 
-    allShips[0] = new MotherShip;
-    for (let index=1; index <6; index++) {
-        allShips[index] = new DefenceShip;
-    }
-    for (let index=6; index <14; index++) {
-        allShips[index] = new AttackShip;
-    }
-    return allShips;
-}
+        const createShips = () => { 
+            allShips[0] = new MotherShip;
+            for (let index=1; index <6; index++) {
+                allShips[index] = new DefenceShip;
+            }
+            for (let index=6; index <14; index++) {
+                allShips[index] = new AttackShip;
+            }
+            return allShips;
+        }
 
-const checkDead = ship => {
-    return ship.hitPoints >= 0;
-}
+        const checkDead = ship => {
+            return ship.hitPoints >= 0;
+        }
 
-const attackShip = () => {
-    const randomShipIndex = Math.floor(Math.random() * allShips.length);
-    allShips[randomShipIndex].takeHit();
-    allShips = allShips.filter(checkDead);
-    printShips();
-    return allShips;
-}
+        const attackShip = () => {
+            const randomShipIndex = Math.floor(Math.random() * allShips.length);
+            allShips[randomShipIndex].takeHit();
+            allShips = allShips.filter(checkDead);
+            printShips();
+            return allShips;
+        }
 
-const printIndividualShip = (ship) => {
-    const showShip = `<p class='ship'> ${ship.name} - HP: ${ship.hitPoints}</p >`;
-    document.getElementById('alienShips').innerHTML += showShip;
-}
+        const printIndividualShip = (ship) => {
+            const showShip = `<p class='ship'> ${ship.name} - HP: ${ship.hitPoints}</p >`;
+            document.getElementById('alienShips').innerHTML += showShip;
+        }
 
-const printShips = () => {
-    document.getElementById('alienShips').innerHTML = "";
-    allShips.forEach(printIndividualShip);
-}
+        const printShips = () => {
+            document.getElementById('alienShips').innerHTML = "";
+            allShips.forEach(printIndividualShip);
+        }
 
-const startResetGame = () => {
-    // allShips = [];
-    createShips();
-    printShips();
-}
+        const startResetGame = () => {
+            createShips();
+            printShips();
+        }
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,17 +94,14 @@ const startResetGame = () => {
     <title>Alien Invasion</title>
 </head>
 <body>
+    <section id="buttons">
+        <h2 id="start" onclick="startResetGame()">Start</h2>
+        <h2 id="fire" onclick="attackShip()">Fire!</h2>
+    </section>
     <section id="alienShips">
         <div id="motherShip"></div>
         <div id="defenceShip" class="flexRow"></div>
         <div id="attackShip" class="flexRow"></div">
     </section>
-    
-    <section id="buttons">
-        <h2 id="start" onclick="startResetGame()">Start</h2>
-        <h2 id="fire" onclick="attackShip()">Fire!</h2>
-    </section>
 </body>
 </html>
-
-
