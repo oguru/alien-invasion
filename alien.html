@@ -61,16 +61,16 @@
             return allShips;
         }
 
-        const checkDead = ship => {
-            return ship.hitPoints >= 0;
-        }
+        const checkDead = ship => ship.hitPoints >= 0;
 
         const attackShip = () => {
             const randomShipIndex = Math.floor(Math.random() * allShips.length);
             allShips[randomShipIndex].takeHit();
+            if (allShips[0].hitPoints <= 0) {
+                allShips=[];
+            }
             allShips = allShips.filter(checkDead);
             printShips();
-            return allShips;
         }
 
         const printIndividualShip = (ship) => {
