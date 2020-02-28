@@ -2,24 +2,62 @@
 <html lang="en">
 <head>
     <style type="text/css">
+        * {
+            padding: 5px;
+        }
+
+        h2 {
+            padding: 5px;
+            margin: 0 40px;
+            border: solid 2px black;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
         #alienShipContainer {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
+            height: 85vh;
         }
 
-        .alien-ship, .alien-ship p {
-            padding: 20px;
+        #buttons {
+            display:flex;
+            justify-content: center;
         }
 
         p {
-            margin: 10px;
-            border: solid red 2px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center top;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            flex-wrap: nowrap;
+            margin: 0 15px;
         }
 
-        #mother-ship {
+        #mother-ship p {
+            width: 28vw;
+            height: 12vw;
             background-image: url("./images/mothership.png");
+        }
+
+        #defence-ships p {
+            width: 9vw;
+            height: 11vw;
+            background-image: url("./images/defence-ship.png");
+        }
+
+        #attack-ships p {
+            width: 8vw;
+            height: 11vw;
+            background-image: url("./images/attack-ship-png.png");
         }
        
         .flex-row {
@@ -42,7 +80,10 @@
             }
 
             printShip(){
-                const showShip = `<p class="${this.cssID}"> ${this.name} - HP: ${this.hitPoints}</p>`;
+                const showShip = `<p id="${this.cssID}">HP: ${this.hitPoints}</p>`;
+
+                `<p id="${this.cssID}"> ${this.name} - HP: ${this.hitPoints}</p>`
+                
                 document.getElementById(this.cssID).innerHTML += showShip;
             }
 
@@ -110,14 +151,14 @@
     <title>Alien Invasion</title>
 </head>
 <body>
-    <section id="buttons">
-        <h2 id="start" onclick="startResetGame()">Start</h2>
-        <h2 id="fire" onclick="attackShip()">Fire!</h2>
-    </section>
     <section id="alienShipContainer">
         <div id="mother-ship" class ="alien-ship"></div>
         <div id="defence-ships" class="flex-row alien-ship"></div>
         <div id="attack-ships" class="flex-row alien-ship"></div">
+    </section>
+    <section id="buttons">
+        <h2 id="start" onclick="startResetGame()">Start</h2>
+        <h2 id="fire" onclick="attackShip()">Fire!</h2>
     </section>
 </body>
 </html>
