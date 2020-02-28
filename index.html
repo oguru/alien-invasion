@@ -40,11 +40,12 @@
             justify-content: center;
             flex-wrap: nowrap;
             margin: 0 15px;
+            font-size: 20px;
         }
 
         #mother-ship p {
             width: 28vw;
-            height: 12vw;
+            height: 13vw;
             background-image: url("./images/mothership.png");
         }
 
@@ -80,10 +81,7 @@
             }
 
             printShip(){
-                const showShip = `<p id="${this.cssID}">HP: ${this.hitPoints}</p>`;
-
-                `<p id="${this.cssID}"> ${this.name} - HP: ${this.hitPoints}</p>`
-                
+                const showShip = `<p id="${this.cssID}">HP: ${this.hitPoints}</p>`;                
                 document.getElementById(this.cssID).innerHTML += showShip;
             }
 
