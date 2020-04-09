@@ -72,41 +72,62 @@
             padding: 20px;
         }
 
-        .animate-on-hit {
-            animation: animate-on-hit 1s ease
-        }
+        /* .animate-on-hit {
+            animation: none;
+        } */
 
         @keyframes animate-on-hit {
             0% {
-                mix-blend-mode: lighten;
+                opacity: 0.7;
+            }
+
+            3% {
+                opacity: 1;
             }
 
             4% {
-                mix-blend-mode: normal;
+                opacity: 0.4;
                 transform: rotate(-2deg);
             }
 
+            5% {
+                opacity: 1;
+            }
+
             8% {
-                mix-blend-mode: lighten;
+                opacity: 1;
+
                 right: -3px;
                 top: 2px;
                 transform: rotate(2deg);
             }
 
             12% {
-                mix-blend-mode: normal;
                 right: -1px;
                 top: 0px;
                 transform: rotate(-4deg);
             }
 
+            14% {
+                opacity: 1;
+
+            }
+
             16% {
+                opacity: 0.4;
+
                 right: 2px;
                 top: -2px;
                 transform: rotate(4deg);
             }
 
+            18% {
+                opacity: 1;
+            }
+
             20% {
+                opacity: 1;
+
                 right: 1px;
                 top: 0px;
                 transform: rotate(-6deg);
@@ -127,23 +148,22 @@
     <script async defer>
 
         class Ship {
-            constructor(name, hitPoints, cssID, takesDamage) {
+            constructor(name, hitPoints, cssClass, takesDamage) {
                 this.name = name;
                 this.hitPoints = hitPoints;
-                this.cssID = cssID;
+                this.cssClass = cssClass;
                 this.takesDamage = takesDamage;
-                this.animateClass = "";
+                this.animateClass = "animation: none";
             }
 
             printShip() {
-                const showShip = `<p id="${this.cssID}" class="${this.animateClass}" 
-                    >HP: ${this.hitPoints}</p>`;
-                document.getElementById(this.cssID).innerHTML += showShip;
+                const showShip = `<p class="${this.cssClass}" style="${this.animateClass}">HP: ${this.hitPoints}</p>`;
+                document.getElementById(this.cssClass).innerHTML += showShip;
             }
 
             takeHit() {
                 this.hitPoints = this.hitPoints - this.takesDamage;
-                this.animateClass = "animate-on-hit";
+                this.animateClass = "animation: animate-on-hit 1s ease";
                 setTimeout(() => {
                     this.animateClass = "";
                 }, 1000)
@@ -151,20 +171,20 @@
         }
 
         class MotherShip extends Ship {
-            constructor(name, hitPoints, cssID, takesDamage) {
-                super(name, hitPoints, cssID, takesDamage);
+            constructor(name, hitPoints, cssClass, takesDamage) {
+                super(name, hitPoints, cssClass, takesDamage);
             }
         }
 
         class DefenceShip extends Ship {
-            constructor(name, hitPoints, cssID, takesDamage) {
-                super(name, hitPoints, cssID, takesDamage);
+            constructor(name, hitPoints, cssClass, takesDamage) {
+                super(name, hitPoints, cssClass, takesDamage);
             }
         }
 
         class AttackShip extends Ship {
-            constructor(name, hitPoints, cssID, takesDamage) {
-                super(name, hitPoints, cssID, takesDamage);
+            constructor(name, hitPoints, cssClass, takesDamage) {
+                super(name, hitPoints, cssClass, takesDamage);
             }
         }
 
