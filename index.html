@@ -43,6 +43,8 @@
             flex-wrap: nowrap;
             margin: 0 15px;
             font-size: 20px;
+            position: relative;
+            transition: 1s;
         }
 
         #mother-ship p {
@@ -69,6 +71,57 @@
             justify-content: space-around;
             padding: 20px;
         }
+
+        .animate-on-hit {
+            animation: animate-on-hit 1s ease
+        }
+
+        @keyframes animate-on-hit {
+            0% {
+                mix-blend-mode: lighten;
+            }
+
+            4% {
+                mix-blend-mode: normal;
+                transform: rotate(-2deg);
+            }
+
+            8% {
+                mix-blend-mode: lighten;
+                right: -3px;
+                top: 2px;
+                transform: rotate(2deg);
+            }
+
+            12% {
+                mix-blend-mode: normal;
+                right: -1px;
+                top: 0px;
+                transform: rotate(-4deg);
+            }
+
+            16% {
+                right: 2px;
+                top: -2px;
+                transform: rotate(4deg);
+            }
+
+            20% {
+                right: 1px;
+                top: 0px;
+                transform: rotate(-6deg);
+            }
+
+            40% {
+                right: -7px;
+                top: 4px;
+            }
+
+            100% {
+                right: 0;
+                top: 0;
+            }
+        }
     </style>
 
     <script async defer>
@@ -79,15 +132,21 @@
                 this.hitPoints = hitPoints;
                 this.cssID = cssID;
                 this.takesDamage = takesDamage;
+                this.animateClass = "";
             }
 
             printShip() {
-                const showShip = `<p id="${this.cssID}">HP: ${this.hitPoints}</p>`;
+                const showShip = `<p id="${this.cssID}" class="${this.animateClass}" 
+                    >HP: ${this.hitPoints}</p>`;
                 document.getElementById(this.cssID).innerHTML += showShip;
             }
 
             takeHit() {
                 this.hitPoints = this.hitPoints - this.takesDamage;
+                this.animateClass = "animate-on-hit";
+                setTimeout(() => {
+                    this.animateClass = "";
+                }, 1000)
             }
         }
 
