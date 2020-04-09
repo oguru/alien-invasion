@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <style type="text/css">
         * {
@@ -10,6 +11,7 @@
             padding: 5px;
             margin: 0 40px;
             border: solid 2px black;
+            user-select: none;
         }
 
         body {
@@ -27,7 +29,7 @@
         }
 
         #buttons {
-            display:flex;
+            display: flex;
             justify-content: center;
         }
 
@@ -60,14 +62,13 @@
             height: 11vw;
             background-image: url("./images/attack-ship-png.png");
         }
-       
+
         .flex-row {
             display: flex;
             flex-direction: row;
             justify-content: space-around;
             padding: 20px;
         }
-
     </style>
 
     <script async defer>
@@ -80,42 +81,42 @@
                 this.takesDamage = takesDamage;
             }
 
-            printShip(){
-                const showShip = `<p id="${this.cssID}">HP: ${this.hitPoints}</p>`;                
+            printShip() {
+                const showShip = `<p id="${this.cssID}">HP: ${this.hitPoints}</p>`;
                 document.getElementById(this.cssID).innerHTML += showShip;
             }
 
-            takeHit(){
-                this.hitPoints = this.hitPoints-this.takesDamage;
-            }            
+            takeHit() {
+                this.hitPoints = this.hitPoints - this.takesDamage;
+            }
         }
 
         class MotherShip extends Ship {
-            constructor(name, hitPoints, cssID, takesDamage){
-                super (name, hitPoints, cssID, takesDamage);
-                }
+            constructor(name, hitPoints, cssID, takesDamage) {
+                super(name, hitPoints, cssID, takesDamage);
+            }
         }
 
         class DefenceShip extends Ship {
-            constructor(name, hitPoints, cssID, takesDamage){
-                super (name, hitPoints, cssID, takesDamage);
+            constructor(name, hitPoints, cssID, takesDamage) {
+                super(name, hitPoints, cssID, takesDamage);
             }
         }
 
         class AttackShip extends Ship {
-            constructor(name, hitPoints, cssID, takesDamage){
-                super (name, hitPoints, cssID, takesDamage);
+            constructor(name, hitPoints, cssID, takesDamage) {
+                super(name, hitPoints, cssID, takesDamage);
             }
         }
 
-        let allShips = []; 
+        let allShips = [];
 
-        const createShips = () => { 
+        const createShips = () => {
             allShips[0] = new MotherShip("Mother Ship", 100, "mother-ship", 9);
-            for (let index=1; index <6; index++) {
+            for (let index = 1; index < 6; index++) {
                 allShips[index] = new DefenceShip("Defence Ship", 80, "defence-ships", 10);
             }
-            for (let index=6; index <14; index++) {
+            for (let index = 6; index < 14; index++) {
                 allShips[index] = new AttackShip("Attack Ship", 45, "attack-ships", 12);
             }
             return allShips;
@@ -125,16 +126,16 @@
             const randomShipIndex = Math.floor(Math.random() * allShips.length);
             allShips[randomShipIndex].takeHit();
             if (allShips[0].hitPoints <= 0) {
-                allShips=[];
+                allShips = [];
             }
-            allShips = allShips.filter(ship => ship.hitPoints >0);
+            allShips = allShips.filter(ship => ship.hitPoints > 0);
             printShips();
         }
 
         const printShips = () => {
-             document.getElementById('mother-ship').innerHTML = "";
-             document.getElementById('attack-ships').innerHTML = "";
-             document.getElementById('defence-ships').innerHTML = "";
+            document.getElementById('mother-ship').innerHTML = "";
+            document.getElementById('attack-ships').innerHTML = "";
+            document.getElementById('defence-ships').innerHTML = "";
             allShips.forEach(ship => ship.printShip());
         }
 
@@ -148,15 +149,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Alien Invasion</title>
 </head>
+
 <body>
     <section id="alienShipContainer">
-        <div id="mother-ship" class ="alien-ship"></div>
+        <div id="mother-ship" class="alien-ship"></div>
         <div id="defence-ships" class="flex-row alien-ship"></div>
-        <div id="attack-ships" class="flex-row alien-ship"></div">
+        <div id="attack-ships" class="flex-row alien-ship">
+            </div">
     </section>
     <section id="buttons">
         <h2 id="start" onclick="startResetGame()">Start</h2>
         <h2 id="fire" onclick="attackShip()">Fire!</h2>
     </section>
 </body>
+
 </html>
