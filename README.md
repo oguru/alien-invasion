@@ -19,6 +19,6 @@ extended it by adding a small animation on hit.
 ## Built Using
 Html\
 CSS\
-Javascript\
+Javascript
 
 #### [Link]( https://alieninvasion.peterdev.co.uk/) to live hosted project.
